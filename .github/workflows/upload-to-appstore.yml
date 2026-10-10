@@ -6,15 +6,14 @@ on:
   jobs:
     upload:
         runs-on: macos-latest
+            steps:
+                  - name: Checkout code
+                          uses: actions/checkout@v3
 
-                steps:
-                      - name: Checkout code
-                              uses: actions/checkout@v3
+                                - name: Download IPA
+                                        run: |
+                                                  curl -L -o malzama.ipa "https://expo.dev/artifacts/eas/T98DrZjHL1OjZr8XF65AzwOoeV9tUQ05WerjwlSu96I.ipa"
 
-                                          - name: Download IPA
-                                                  run: |
-                                                            curl -L -o malzama.ipa "https://expo.dev/artifacts/eas/T98DrZjHL1OjZr8XF65AzwOoeV9tUQ05WerjwlSu96I.ipa"
-
-                                                                        - name: Upload to App Store Connect
-                                                                                run: |
-                                                                                          xcrun altool --upload-app -f malzama.ipa -t ios -u "${{ secrets.APPLE_ID }}" -p "${{ secrets.APPLE_PASSWORD }}" --output-format xml
+                                                        - name: Upload to App Store Connect
+                                                                run: |
+                                                                          xcrun altool --upload-app -f malzama.ipa -t ios -u "${{ secrets.APPLE_ID }}" -p "${{ secrets.APPLE_PASSWORD }}" --output-format xml
